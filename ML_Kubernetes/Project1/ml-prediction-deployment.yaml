@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment    #Service, deployment, pod hangi tür ise onu belirtiyoruz
+metadata:           #Objeye önelik özel bilgiler 
+  name: ml-prediction-deployment #Pod objesine verdiğimiz isim - Listede görünecek isim.
+  labels:                #
+    app: ml-prediction   #sahip olacağı etiketin isimi
+spec:            #Oluşturacağımız objeye özel bilgileri gireceğiz       
+  replicas: 3
+  selector: #Bu deployment objesi kimleri yönetecek ? ml-prediction etiketine sahip olacak.
+    matchLabels:
+      app: ml-prediction
+  template: #template kısmında "oluşacak pod ile" alakalı bilgileri veriyorum.
+    metadata:
+      labels:
+        app: ml-prediction # selector-app ile template-app de aynı etiketler bulunmak zorundadır
+    spec:         #Oluşturacağımız objeye özel bilgileri gireceğiz
+      containers:
+      - name: ml-prediction
+        image: ml_kubectl_ingress #hangi imajdan oluşturulsun
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000 #container dışından 80 portuyla erişebilsin   
+
