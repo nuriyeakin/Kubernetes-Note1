@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod      #Service, deployment, pod hangi tür ise onu belirtiyoruz
+metadata:
+  name: firstpod  #Pod objesine verdiğimiz isim - Listede görünecek isim.
+  labels:
+    app: front-end #sahip olacağı etiketin isimi
+
+spec:           #Oluşturacağımız objeye özel bilgileri gireceğiz
+  containers:
+  - name: nginx         #containerın isimi ne olsun
+    image: nginx:latest #hangi imajdan oluşturulsun
+    ports:
+    - containerPort: 80 #container dışından 80 portuyla erişebilsin
+
